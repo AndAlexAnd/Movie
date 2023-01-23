@@ -8,13 +8,20 @@ import java.util.List;
 
 public class MovieResponseFromDocs {
     @SerializedName("docs") // если ответ сервера не совпадает с именем нашей переменной, то правильное название указываем через @SerializedName("docs")
-    private List<Movie> movies;
+    private List<MovieFromDocs> movies;
 
-    public List<Movie> getMovies() {
+    public MovieResponseFromDocs(List<MovieFromDocs> movies) {
+        this.movies = movies;
+    }
+
+    public List<MovieFromDocs> getMovies() {
         return movies;
     }
 
-    public MovieResponseFromDocs(List<Movie> movies) {
-        this.movies = movies;
+    @Override
+    public String toString() {
+        return "MovieResponseFromDocs{" +
+                "movies=" + movies +
+                '}';
     }
 }

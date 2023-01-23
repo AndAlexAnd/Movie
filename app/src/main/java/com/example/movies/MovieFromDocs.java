@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class MovieFromDocs {
     @SerializedName("id")
     private int id;
+
     @SerializedName("name")
     private String name;
     @SerializedName("description")
@@ -15,6 +16,15 @@ public class MovieFromDocs {
     private Poster poster;
     @SerializedName("rating")
     private Rating rating;
+
+    public MovieFromDocs(int id, String name, String description, int year, Poster poster, Rating rating) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.year = year;
+        this.poster = poster;
+        this.rating = rating;
+    }
 
 
     public int getId() {
@@ -41,12 +51,15 @@ public class MovieFromDocs {
         return rating;
     }
 
-    public MovieFromDocs(int id, String name, String description, int year, Poster poster, Rating rating) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.year = year;
-        this.poster = poster;
-        this.rating = rating;
+    @Override
+    public String toString() {
+        return "MovieFromDocs{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", year=" + year +
+                ", poster=" + poster +
+                ", rating=" + rating +
+                '}';
     }
 }
