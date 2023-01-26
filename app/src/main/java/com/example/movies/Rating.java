@@ -11,7 +11,7 @@ public class Rating {
     }
 
     public String getKp() {
-        return kp;
+        return kp.substring(0,3);
     }
 
     @Override
