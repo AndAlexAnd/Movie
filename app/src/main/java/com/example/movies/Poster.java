@@ -8,6 +8,7 @@ public class Poster {
 
     @SerializedName("url")
     private String url;
+    private Poster poster;
 
     public Poster(String url) {
         this.url = url;
@@ -17,6 +18,9 @@ public class Poster {
         return url;
     }
 
+    public Poster getPoster() {
+        return poster;
+    }
 
     //catch (Exception e) {
     //                throw new RuntimeException(e);

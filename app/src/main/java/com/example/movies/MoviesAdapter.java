@@ -9,10 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
 
     public void setMovieFromDocs(List<MovieFromDocs> movieFromDocs) {
+
         this.movieFromDocs = movieFromDocs;
         notifyDataSetChanged(); // добавляем для уведомления об изменении
     }
@@ -41,6 +47,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         return new MovieViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 
@@ -49,17 +57,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         //этот метод будет вызываться для каждого элемента списка
         MovieFromDocs movieFromDocsOnBind = movieFromDocs.get(position); // получаем объект MovieFromDocs
         // устанавливаем картинку при помощи Glide
-            try {
-                Glide.with(holder.itemView)
-                        .load(R.drawable.baseline_not_interested_24)
-                        .load(movieFromDocsOnBind.getPoster().getUrl())
-                        //.error(R.drawable.baseline_not_interested_24)
-                       // .placeholder(R.drawable.baseline_not_interested_24)
+                if (movieFromDocsOnBind.getPoster() != null){
+                    Glide.with(holder.itemView)
 
-                        .into(holder.imageViewPoster);
-            } catch (Exception e){
-                Log.d("Poster", e.toString());
-            }
+                            .load(movieFromDocsOnBind.getPoster().getUrl())
+                            .error(R.color.purple_200)
+                            .placeholder(R.color.purple_200)
+                            .fallback(R.color.purple_200)
+
+                            .into(holder.imageViewPoster);
+                }
 
 
 

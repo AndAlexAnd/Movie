@@ -46,6 +46,7 @@ public class MovieFromDocs {
     }
 
     public Poster getPoster() {
+
         return poster;
     }
 

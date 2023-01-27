@@ -19,6 +19,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MainViewModel extends AndroidViewModel {
 
     private final MutableLiveData<List<MovieFromDocs>> moviesLiveData = new MutableLiveData<>();
+
+
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private static final String TAG = "MainViewModel";
 
@@ -28,8 +30,13 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
     } // CTRL+O
     public LiveData<List<MovieFromDocs>> getMoviesLiveData(){
+
+
+
         return moviesLiveData;
     } // ALT+INSERT
+
+
     public void loadMovies(){
         Disposable disposable = ApiFactory.apiService.loadMovies(page)
                 .subscribeOn(Schedulers.io())
@@ -37,13 +44,19 @@ public class MainViewModel extends AndroidViewModel {
                 .subscribe(new Consumer<MovieResponseFromDocs>() {
                     @Override
                     public void accept(MovieResponseFromDocs movieResponseFromDocs) throws Throwable {
-                        page++;
-                    moviesLiveData.setValue(movieResponseFromDocs.getMovies());
+
+                                       page++;
+                            moviesLiveData.setValue(movieResponseFromDocs.getMovies());
+
+
+
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Throwable {
                         Log.d(TAG, throwable.toString());
+
                     }
                 });
         compositeDisposable.add(disposable);
