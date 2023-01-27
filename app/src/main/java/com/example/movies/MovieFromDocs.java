@@ -1,5 +1,7 @@
 package com.example.movies;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 public class MovieFromDocs {

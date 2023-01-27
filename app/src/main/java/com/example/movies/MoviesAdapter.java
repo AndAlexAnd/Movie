@@ -1,5 +1,7 @@
 package com.example.movies;
 
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -40,15 +43,40 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+
+
+        //holder.textViewRating.setText(String.format("%.1f", rating));
         //этот метод будет вызываться для каждого элемента списка
         MovieFromDocs movieFromDocsOnBind = movieFromDocs.get(position); // получаем объект MovieFromDocs
         // устанавливаем картинку при помощи Glide
-        Glide.with(holder.itemView)
-                .load(movieFromDocsOnBind.getPoster().getUrl())
-                .into(holder.imageViewPoster);
-        // получаем рейтинг
+            try {
+                Glide.with(holder.itemView)
+                        .load(R.drawable.baseline_not_interested_24)
+                        .load(movieFromDocsOnBind.getPoster().getUrl())
+                        //.error(R.drawable.baseline_not_interested_24)
+                       // .placeholder(R.drawable.baseline_not_interested_24)
 
-        holder.textViewRating.setText(movieFromDocsOnBind.getRating().getKp());
+                        .into(holder.imageViewPoster);
+            } catch (Exception e){
+                Log.d("Poster", e.toString());
+            }
+
+
+
+        // получаем рейтинг
+        double rating = movieFromDocsOnBind.getRating().getKp();
+        int backgroundId; // условия установки
+        if (rating > 7) {
+            backgroundId = R.drawable.circle_green;
+        } else if (rating > 5) {
+            backgroundId = R.drawable.circle_orange;
+        } else {
+            backgroundId = R.drawable.circle_red;
+        }
+        Drawable background = ContextCompat.getDrawable(holder.itemView.getContext(), backgroundId); // Получаем сам фон в виде объекта Drawable
+        holder.textViewRating.setBackground(background);// устанавливаем сам фон у textView
+        holder.textViewRating.setText(String.format("%.1f", rating));
+
     }
 
     @Override

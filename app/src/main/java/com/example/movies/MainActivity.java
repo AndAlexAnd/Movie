@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MovieFromDocs> movieFromDocs) {
                 // фильмы в адаптер добавляем в onChanged, когда они будут загружены из сети
+
                 moviesAdapter.setMovieFromDocs(movieFromDocs);
             }
         });

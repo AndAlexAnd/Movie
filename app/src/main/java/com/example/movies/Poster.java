@@ -1,8 +1,11 @@
 package com.example.movies;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Poster {
+
     @SerializedName("url")
     private String url;
 
@@ -14,6 +17,9 @@ public class Poster {
         return url;
     }
 
+
+    //catch (Exception e) {
+    //                throw new RuntimeException(e);
     @Override
     public String toString() {
         return "Poster{" +
