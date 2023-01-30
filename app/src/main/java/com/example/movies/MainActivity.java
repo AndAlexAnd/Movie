@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MainViewModel viewModel;
     private final static String TAG = "MainActivity";
+    private ProgressBar progressBarLoading;
 
     private RecyclerView recyclerViewMovies; // создаем ссылку на RecyclerView
     private MoviesAdapter moviesAdapter; // и создаем ссылку на MoviesAdapter
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
+        progressBarLoading = findViewById(R.id.progressBarLoading);
         moviesAdapter = new MoviesAdapter();
         recyclerViewMovies.setAdapter(moviesAdapter); // устанавливаем адаптер в recyclerView
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2)); // устанавливаем табличный вид в 2 колонки
@@ -43,6 +47,22 @@ public class MainActivity extends AppCompatActivity {
                 moviesAdapter.setMovieFromDocs(movieFromDocs);
             }
         });
-        viewModel.loadMovies();
+
+        viewModel.getIsLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isLoading) {
+                if (isLoading) { // если идет загрузка
+                    progressBarLoading.setVisibility(View.VISIBLE);// делаем прогресс бар видимым
+                } else {
+                    progressBarLoading.setVisibility(View.GONE);// делаем прогресс невидимым
+                }
+            }
+        });
+        moviesAdapter.setOnReachEndListener(new MoviesAdapter.OnReachEndListener() { // у адаптера устанавливаем наш слушатель
+            @Override
+            public void onReachEnd() { // когда список закончился стартуем новую загрузку
+            viewModel.loadMovies();
+            }
+        });
     }
 }

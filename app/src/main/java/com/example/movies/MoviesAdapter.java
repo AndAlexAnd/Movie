@@ -27,7 +27,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     private List<MovieFromDocs> movieFromDocs = new ArrayList<>(); // и добавляем сеттер на это поле
 
+    private OnReachEndListener onReachEndListener; // + добавляем setter atl+insert
 
+    public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
+        // теперь из Activity можем вызывать этот интерфейс, переопределять слушатель и определять поведение
+        this.onReachEndListener = onReachEndListener;
+    }
 
     public void setMovieFromDocs(List<MovieFromDocs> movieFromDocs) {
 
@@ -38,6 +43,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // вызывается столько раз, чтобы показать, все фильмы по 4 картинки на экране, примерно 4-6 раз
         // тут создаем View из макета
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.movie_item,
@@ -52,19 +58,18 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 
-
+        Log.d("MoviesAdapter", "onBindViewHolder" + position);// проверяем
         //holder.textViewRating.setText(String.format("%.1f", rating));
         //этот метод будет вызываться для каждого элемента списка
         MovieFromDocs movieFromDocsOnBind = movieFromDocs.get(position); // получаем объект MovieFromDocs
         // устанавливаем картинку при помощи Glide
-                if (movieFromDocsOnBind.getPoster() != null){
+               if (movieFromDocsOnBind.getPoster() != null){
                     Glide.with(holder.itemView)
 
                             .load(movieFromDocsOnBind.getPoster().getUrl())
-                            .error(R.color.purple_200)
-                            .placeholder(R.color.purple_200)
-                            .fallback(R.color.purple_200)
-
+                            .error(R.drawable.circle_red)
+                            .placeholder(R.drawable.circle_red)
+                            .fallback(R.drawable.circle_red)
                             .into(holder.imageViewPoster);
                 }
 
@@ -84,11 +89,20 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         holder.textViewRating.setBackground(background);// устанавливаем сам фон у textView
         holder.textViewRating.setText(String.format("%.1f", rating));
 
+        if (position >= movieFromDocs.size() - 10 && onReachEndListener != null) { // определяем середину списка (до конца списка осталось меньше 10 элементов
+            onReachEndListener.onReachEnd();
+            // стартовать загрузку из адаптера нельзя
+        }
+
     }
 
     @Override
     public int getItemCount() {
         return movieFromDocs.size();
+    }
+
+    interface OnReachEndListener { // создаем callback интерфейс, для определения окончания списка
+        void onReachEnd();
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder{

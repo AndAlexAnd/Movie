@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieFromDocs {
     @SerializedName("id")
     private int id;
@@ -28,6 +31,10 @@ public class MovieFromDocs {
         this.rating = rating;
     }
 
+    public MovieFromDocs() {
+
+    }
+
 
     public int getId() {
         return id;
@@ -48,6 +55,7 @@ public class MovieFromDocs {
     public Poster getPoster() {
 
         return poster;
+
     }
 
     public Rating getRating() {
