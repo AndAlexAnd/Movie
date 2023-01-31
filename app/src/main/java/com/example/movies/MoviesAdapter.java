@@ -29,6 +29,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     private OnReachEndListener onReachEndListener; // + добавляем setter atl+insert
 
+    private OnMovieClickListener onMovieClickListener; // Добавляем переменную интерфейсного типа как переменную экземпляра + setter
+
+    public void setOnMovieClickListener(OnMovieClickListener onMovieClickListener) {
+        this.onMovieClickListener = onMovieClickListener;
+    }
+
     public void setOnReachEndListener(OnReachEndListener onReachEndListener) {
         // теперь из Activity можем вызывать этот интерфейс, переопределять слушатель и определять поведение
         this.onReachEndListener = onReachEndListener;
@@ -94,6 +100,19 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             // стартовать загрузку из адаптера нельзя
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            if (onMovieClickListener != null){ // делаем проверку, если сделан клик (становится сразу !=null, то передаем объект movie
+                onMovieClickListener.onMovieClick(movieFromDocsOnBind);
+            }
+            }
+        });
+
+    }
+
+    interface OnMovieClickListener{ // создаем свой интерфейс слушателя клика
+        void onMovieClick(MovieFromDocs movieFromDocs);
     }
 
     @Override

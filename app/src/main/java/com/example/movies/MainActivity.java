@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -62,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReachEnd() { // когда список закончился стартуем новую загрузку
             viewModel.loadMovies();
+            }
+        });
+        moviesAdapter.setOnMovieClickListener(new MoviesAdapter.OnMovieClickListener() { //Устанавливаем наш собственный слушатель клика в адаптер
+            // setOnMovieClickListener - берется из нашего setter_а
+
+            @Override
+            public void onMovieClick(MovieFromDocs movieFromDocs) {
+                Intent intent = MovieDetailActivity.newIntent(MainActivity.this, movieFromDocs);//получаем наш интент при клике
+                startActivity(intent); // запускаем его
             }
         });
     }
