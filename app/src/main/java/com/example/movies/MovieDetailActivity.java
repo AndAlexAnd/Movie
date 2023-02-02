@@ -3,6 +3,7 @@ package com.example.movies;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView textViewYearDetail;
     private TextView textViewDescriptionDetail;
 
+    private RecyclerView recyclerViewTrailers;
+
+    private TrailersAdapter trailersAdapter;
+
     private static final String EXTRA_MOVIE = "movie";
     private static final String TAG = "MovieDetailActivity";
 
@@ -38,6 +43,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
         viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
+        trailersAdapter = new TrailersAdapter();
+        recyclerViewTrailers.setAdapter(trailersAdapter); // у recyclerViewTrailers устанавливаем созданный нами адаптер
+
 
 
         MovieFromDocs movieFromDocs = (MovieFromDocs) getIntent().getSerializableExtra(EXTRA_MOVIE); // получаем наш созданный интент
@@ -53,8 +61,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.getTrailers().observe(this, new Observer<List<Trailer>>() { // подписываемся на загруженные фильмы
             @Override
             public void onChanged(List<Trailer> trailers) {
-                // тут потом будем устанавливать трейлеры в адаптер
-                Log.d(TAG, trailers.toString());
+                // устанавливаем список трейлеров в адаптер
+                trailersAdapter.setTrailers(trailers);
             }
         });
     }
@@ -66,6 +74,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewTitleDetail = findViewById(R.id.textViewTitleDetail);
         textViewYearDetail = findViewById(R.id.textViewYearDetail);
         textViewDescriptionDetail = findViewById(R.id.textViewDescriptionDetail);
+        recyclerViewTrailers = findViewById(R.id.recyclerViewMovies);
     }
     public static Intent newIntent(Context context, MovieFromDocs movieFromDocs){ // создаем интент для передачи содержимого Movie
         Intent intent = new Intent(context, MovieDetailActivity.class); // создаем интент для передачи содержимого Movie
