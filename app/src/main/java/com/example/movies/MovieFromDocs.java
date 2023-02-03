@@ -32,9 +32,7 @@ public class MovieFromDocs implements Serializable {
         this.rating = rating;
     }
 
-    public MovieFromDocs() {
 
-    }
 
 
     public int getId() {

@@ -8,18 +8,20 @@ public class TrailersList {
     @SerializedName("trailers")
     private List<Trailer> trailers;
 
-    @Override
-    public String toString() {
-        return "TrailersList{" +
-                "trailers=" + trailers +
-                '}';
+    public TrailersList(List<Trailer> trailers) {
+        this.trailers = trailers;
     }
+
 
     public List<Trailer> getTrailers() {
         return trailers;
     }
 
-    public TrailersList(List<Trailer> trailers) {
-        this.trailers = trailers;
+
+    @Override
+    public String toString() {
+        return "TrailersList{" +
+                "trailers=" + trailers +
+                '}';
     }
 }

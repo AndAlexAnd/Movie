@@ -74,7 +74,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewTitleDetail = findViewById(R.id.textViewTitleDetail);
         textViewYearDetail = findViewById(R.id.textViewYearDetail);
         textViewDescriptionDetail = findViewById(R.id.textViewDescriptionDetail);
-        recyclerViewTrailers = findViewById(R.id.recyclerViewMovies);
+        recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
     }
     public static Intent newIntent(Context context, MovieFromDocs movieFromDocs){ // создаем интент для передачи содержимого Movie
         Intent intent = new Intent(context, MovieDetailActivity.class); // создаем интент для передачи содержимого Movie

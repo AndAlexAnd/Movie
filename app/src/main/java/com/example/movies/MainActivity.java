@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,9 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity";
     private ProgressBar progressBarLoading;
 
-    private RecyclerView recyclerViewMovies; // создаем ссылку на RecyclerView
+    private RecyclerView recyclerViewMovies;
     private MoviesAdapter moviesAdapter; // и создаем ссылку на MoviesAdapter
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

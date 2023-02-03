@@ -126,8 +126,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     static class MovieViewHolder extends RecyclerView.ViewHolder{
         // сами внутри создаем класс MovieViewHolder и наследуемся от RecyclerView.ViewHolder
-        private ImageView imageViewPoster;
-        private TextView textViewRating;
+        private final ImageView imageViewPoster;
+        private final TextView textViewRating;
 
         public MovieViewHolder(@NonNull View itemView) { // ALT+INSERT переопределяем конструктор
             super(itemView);

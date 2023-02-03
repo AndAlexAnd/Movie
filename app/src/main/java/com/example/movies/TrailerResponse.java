@@ -6,6 +6,14 @@ public class TrailerResponse {
     @SerializedName("videos")
     private TrailersList trailersList;
 
+    public TrailerResponse(TrailersList trailersList) {
+        this.trailersList = trailersList;
+    }
+
+    public TrailersList getTrailersList() {
+        return trailersList;
+    }
+
     @Override
     public String toString() {
         return "TrailerResponse{" +
@@ -13,11 +21,7 @@ public class TrailerResponse {
                 '}';
     }
 
-    public TrailersList getTrailersList() {
-        return trailersList;
-    }
 
-    public TrailerResponse(TrailersList trailersList) {
-        this.trailersList = trailersList;
-    }
+
+
 }

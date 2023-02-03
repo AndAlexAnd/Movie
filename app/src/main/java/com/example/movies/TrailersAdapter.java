@@ -15,6 +15,8 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
 
     private List<Trailer> trailers = new ArrayList<>(); // + setter на нее
 
+
+
     public void setTrailers(List<Trailer> trailers) {
         this.trailers = trailers;
         notifyDataSetChanged(); // когда установим новые значения необходимо вызывать этот метод

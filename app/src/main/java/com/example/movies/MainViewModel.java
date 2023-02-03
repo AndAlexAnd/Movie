@@ -28,22 +28,22 @@ public class MainViewModel extends AndroidViewModel {
     private static final String TAG = "MainViewModel";
     private int page = 1;
 
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        loadMovies(); // viewModel.loadMovies(); - удаляем viewModel.
+    }
+
     public LiveData<Boolean> getIsLoading() { // убираем Mutable - делаем неизменяемым
         return isLoading;
     }
 
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-        loadMovies(); // viewModel.loadMovies(); - удаляем viewModel.
-    } // CTRL+O
+     // CTRL+O
     public LiveData<List<MovieFromDocs>> getMoviesLiveData(){
 
         return moviesLiveData;
     } // ALT+INSERT
 
-    public void filterMovie(){
 
-    }
 
     public void loadMovies(){
         Boolean loading = isLoading.getValue();//получаем значение LiveData
