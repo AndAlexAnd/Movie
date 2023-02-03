@@ -22,7 +22,7 @@ public class MovieDetailViewModel extends AndroidViewModel {
     private static final String TAG = "MovieDetailViewModel";
 
     private final MutableLiveData<List<Trailer>> trailers = new MutableLiveData<>(); // + добавляем getter
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
 
     public MovieDetailViewModel(@NonNull Application application) { // переопределяем через ctrl+o или через alt+ins

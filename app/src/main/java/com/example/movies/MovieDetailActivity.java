@@ -44,7 +44,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
         trailersAdapter = new TrailersAdapter();
-        recyclerViewTrailers.setAdapter(trailersAdapter); // у recyclerViewTrailers устанавливаем созданный нами адаптер
+       recyclerViewTrailers.setAdapter(trailersAdapter); // у recyclerViewTrailers устанавливаем созданный нами адаптер
 
 
 

@@ -14,3 +14,6 @@ public interface ApiService {
     @GET("movie?token=P7VS855-8QM4V7B-JQW4RN1-XK8Q243&field=id")
     Single<TrailerResponse> loadTrailers(@Query("search") int id); // Retrofit сам поставит знак амперсанда & и = к слову id
 }
+
+   // @GET("movie?token=P7VS855-8QM4V7B-JQW4RN1-XK8Q243&field=id")
+    // Single<TrailerResponse> loadTrailers(@Query("search") int id); // Retrofit сам поставит знак амперсанда & и = к слову id
