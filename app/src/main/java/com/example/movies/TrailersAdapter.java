@@ -14,8 +14,11 @@ import java.util.List;
 public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.TrailersViewHolder> { // переопределяем ctrl+i все методы
 
     private List<Trailer> trailers = new ArrayList<>(); // + setter на нее
+    private OnTrailerClickListener onTrailerClickListener; // + setter на нее
 
-
+    public void setOnTrailerClickListener(OnTrailerClickListener onTrailerClickListener) {
+        this.onTrailerClickListener = onTrailerClickListener;
+    }
 
     public void setTrailers(List<Trailer> trailers) {
         this.trailers = trailers;
@@ -33,12 +36,24 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
     public void onBindViewHolder(@NonNull TrailersViewHolder holder, int position) {
         Trailer trailer = trailers.get(position); // по номеру позиции получаем трейлер
         holder.textViewTrailerName.setText(trailer.getName()); // устанавливаем текст внутрь textView
+        holder.itemView.setOnClickListener(new View.OnClickListener() { // навешиваем слушатель на itemView
+            @Override
+            public void onClick(View v) {
+            if (onTrailerClickListener != null){
+                onTrailerClickListener.OnTrailerClick(trailer);
+            }
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
         return trailers.size();
+    }
+
+    interface OnTrailerClickListener{
+        void OnTrailerClick(Trailer trailer);
     }
 
     static class TrailersViewHolder extends RecyclerView.ViewHolder {
