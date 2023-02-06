@@ -29,8 +29,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView textViewDescriptionDetail;
 
     private RecyclerView recyclerViewTrailers;
+    private RecyclerView recyclerViewReviews;
 
     private TrailersAdapter trailersAdapter;
+    private ReviewAdapter reviewAdapter;
 
     private static final String EXTRA_MOVIE = "movie";
     private static final String TAG = "MovieDetailActivity";
@@ -45,7 +47,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MovieDetailViewModel.class);
         initViews();
         trailersAdapter = new TrailersAdapter();
+        reviewAdapter = new ReviewAdapter();
        recyclerViewTrailers.setAdapter(trailersAdapter); // у recyclerViewTrailers устанавливаем созданный нами адаптер
+        recyclerViewReviews.setAdapter(reviewAdapter);
 
 
 
@@ -78,7 +82,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.getReviews().observe(this, new Observer<List<Review>>() {
             @Override
             public void onChanged(List<Review> reviewList) {
-            Log.d(TAG, reviewList.toString());
+            reviewAdapter.setReviews(reviewList);
             }
         });
         viewModel.loadReviews(movieFromDocs.getId()); // запускаем загрузку отзывов
@@ -91,6 +95,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         textViewTitleDetail = findViewById(R.id.textViewTitleDetail);
         textViewYearDetail = findViewById(R.id.textViewYearDetail);
         textViewDescriptionDetail = findViewById(R.id.textViewDescriptionDetail);
+        recyclerViewReviews = findViewById(R.id.recyclerViewReviews);
         recyclerViewTrailers = findViewById(R.id.recyclerViewTrailers);
     }
     public static Intent newIntent(Context context, MovieFromDocs movieFromDocs){ // создаем интент для передачи содержимого Movie
