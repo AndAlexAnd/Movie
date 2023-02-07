@@ -86,6 +86,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             }
         });
         viewModel.loadReviews(movieFromDocs.getId()); // запускаем загрузку отзывов
+
+
     }
 
 
