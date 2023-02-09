@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = FavouriteMoviesActivity.newIntent(this);
+        startActivity(intent);
+
         recyclerViewMovies = findViewById(R.id.recyclerViewMovies);
         progressBarLoading = findViewById(R.id.progressBarLoading);
         moviesAdapter = new MoviesAdapter();

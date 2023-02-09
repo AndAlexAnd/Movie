@@ -64,7 +64,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 
-        Log.d("MoviesAdapter", "onBindViewHolder" + position);// проверяем
+       // Log.d("MoviesAdapter", "onBindViewHolder" + position);// проверяем
         //holder.textViewRating.setText(String.format("%.1f", rating));
         //этот метод будет вызываться для каждого элемента списка
         MovieFromDocs movieFromDocsOnBind = movieFromDocs.get(position); // получаем объект MovieFromDocs
